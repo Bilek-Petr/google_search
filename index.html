@@ -3,27 +3,27 @@
    <head>
       <meta charset="UTF-8" />
       <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-      <!-- <link rel="stylesheet" href="style.css" /> -->
+      <link rel="stylesheet" href="style.css" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Search App</title>
    </head>
    <body>
-      <main>
-         <div>
-            <form action="" class="search-form" autocomplete="off">
-               <!-- <label for="search" class="sr-only">Search</label> -->
+      <main class="container">
+         <div class="search">
+            <form action="" class="search__form" autocomplete="off">
                <input
                   type="text"
                   name="search"
                   id="search"
                   placeholder="Enter searched term..."
+                  class="search__input"
                />
-               <button class="search-form__btn">Search</button>
+               <button class="search__btn">Search</button>
             </form>
          </div>
 
          <div class="search-results"></div>
-         <button id="save-button" style="display: none">save data as JSON</button>
+         <button class="save-button btn" style="display: none">save data as JSON</button>
       </main>
       <script type="module" src="/main.js"></script>
    </body>

@@ -1,8 +1,8 @@
 import { renderResults } from './renderFunctions.js';
 const API_KEY = import.meta.env.VITE_API_KEY;
 
-const searchForm = document.querySelector('.search-form');
-const saveButton = document.getElementById('save-button');
+const searchForm = document.querySelector('.search__form');
+const saveButton = document.querySelector('.save-button');
 export let searchData = [];
 
 const handleFormSubmit = (e) => {

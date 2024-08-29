@@ -1,3 +1,38 @@
+# name: Deploy
+
+# on:
+#    push:
+#       branches:
+#          - master
+
+# jobs:
+#    build:
+#       runs-on: ubuntu-latest
+
+#       steps:
+#          - name: Checkout code
+#            uses: actions/checkout@v2
+
+#          - name: Set up Node.js
+#            uses: actions/setup-node@v3
+#            with:
+#               node-version: '16'
+
+#          - name: Install dependencies
+#            run: npm install
+
+#          - name: Build
+#            run: npm run build
+#            env:
+#               VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+
+#          - name: Deploy
+#            run: |
+#               echo "Deploying..."
+#               # Add deployment commands here
+#               npm install -g gh-pages
+#               gh-pages -d dist
+
 name: Deploy
 
 on:
@@ -7,28 +42,43 @@ on:
 
 jobs:
    build:
+      name: Build
       runs-on: ubuntu-latest
 
       steps:
-         - name: Checkout code
-           uses: actions/checkout@v2
+         - name: Checkout repo
+           uses: actions/checkout@v3
 
-         - name: Set up Node.js
+         - name: Setup Node
            uses: actions/setup-node@v3
-           with:
-              node-version: '16'
 
          - name: Install dependencies
-           run: npm install
+           uses: bahmutov/npm-install@v1
 
-         - name: Build
+         - name: Build project
            run: npm run build
-           env:
-              VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
 
-         - name: Deploy
-           run: |
-              echo "Deploying..."
-              # Add deployment commands here
-              npm install -g gh-pages
-              gh-pages -d dist
+         - name: Upload production-ready build files
+           uses: actions/upload-artifact@v3
+           with:
+              name: production-files
+              path: ./dist
+
+   deploy:
+      name: Deploy
+      needs: build
+      runs-on: ubuntu-latest
+      if: github.ref == 'refs/heads/master'
+
+      steps:
+         - name: Download artifact
+           uses: actions/download-artifact@v3
+           with:
+              name: production-files
+              path: ./dist
+
+         - name: Deploy to GitHub Pages
+           uses: peaceiris/actions-gh-pages@v3
+           with:
+              github_token: ${{ secrets.GITHUB_TOKEN }}
+              publish_dir: ./dist

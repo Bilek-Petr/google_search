@@ -1,7 +1,7 @@
 import { searchData } from './main.js';
 
 const searchResults = document.querySelector('.search-results');
-const saveButton = document.querySelector('#save-button');
+const saveButton = document.querySelector('.save-button');
 
 const displayNoResultsMessage = () => {
    searchResults.innerHTML = '<p>No results found or an error occurred.</p>';
@@ -34,7 +34,6 @@ export const renderSingleResult = (result) => {
    resultElement.classList.add('result');
    resultElement.innerHTML = `
         <h1>${result.title}</h1>
-        <a href="${result.url}">${result.url}</a>
         <p>${result.snippet}</p>
     `;
    searchResults.appendChild(resultElement);
