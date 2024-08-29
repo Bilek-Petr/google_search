@@ -13,7 +13,7 @@ const handleFormSubmit = (e) => {
 };
 
 const fetchData = async (searchQuery) => {
-   const url = `http://api.serpstack.com/search?access_key=${API_KEY}&query=${searchQuery}`;
+   const url = `https://api.serpstack.com/search?access_key=${API_KEY}&query=${searchQuery}`;
 
    try {
       const response = await fetch(url);

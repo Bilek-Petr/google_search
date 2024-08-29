@@ -35,6 +35,7 @@ export const renderSingleResult = (result) => {
    resultElement.innerHTML = `
         <h1>${result.title}</h1>
         <p>${result.snippet}</p>
+        <a href=${result.url}>${result.domain}</a>
     `;
    searchResults.appendChild(resultElement);
 };
